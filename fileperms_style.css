@@ -18,6 +18,14 @@
     right: 0;
 }
 
+#effectivePermissions, .file {
+    padding: 1rem;
+
+}
+.effective_perm_name{
+    padding: .1rem;
+}
+
 
 #mturk-top-banner-drop-down-content {
     position: absolute;
