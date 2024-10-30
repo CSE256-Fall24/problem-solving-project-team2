@@ -5,9 +5,18 @@ $('#sidepanel').append(permChart)
 let newUser = define_new_user_select_field("user", "selectUser", on_user_change = function (selected_user) {
     $('#effectivePermimssions').attr('username', selected_user)
 })
-$('#sidepanel').append(newUser)
-$('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt')
-$('#effectivePermissions').attr('username', 'administrator')
+function side_panel_header (){
+    var x = document.createElement("H4");
+    var t = document.createTextNode("Effective Permissions");
+    x.append(t);
+    document.body.append(x);
+};
+
+// $('#sidepanel').prepend(side_panel_header);
+$('#wrapper').prepend(side_panel_header);
+$('#sidepanel').append(newUser);
+$('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
+$('#effectivePermissions').attr('username', 'administrator');
 
 let myDialog = define_new_dialog('newDialog', title = '', options = {})
 $('.perm_info').click(function () {
@@ -16,23 +25,24 @@ $('.perm_info').click(function () {
     myDialog.dialog('open')
     
     // Get the filepath, username, and permission name from the clicked element
-    let filepath = $('#effectivePermissions').attr('filepath')
-    let username = $('#effectivePermissions').attr('username')
+    let filepath = $('#effectivePermissions').attr('filepath');
+    let username = $('#effectivePermissions').attr('username');
     let permissionName = $(this).attr("permission_name");
+    
 
     // Log values for debugging
-    console.log('Filepath: ', filepath)
-    console.log('Username: ', username)
-    console.log('Permission Name: ', permissionName)
+    console.log('Filepath: ', filepath);
+    console.log('Username: ', username);
+    console.log('Permission Name: ', permissionName);
 
     // Get the file and user objects
-    let file_object = path_to_file[filepath]
-    let user_object = all_users[username]  
+    let file_object = path_to_file[filepath];
+    let user_object = all_users[username];  
 
-    myDialog.empty()
+    myDialog.empty();
 
-    let explanation = get_explanation_text(allow_user_action(file_object, user_object, permissionName, explain_why = true))
-    myDialog.append(explanation)
+    let explanation = get_explanation_text(allow_user_action(file_object, user_object, permissionName, explain_why = true));
+    myDialog.append(explanation);
 })
 
 // ---- Display file structure ----
