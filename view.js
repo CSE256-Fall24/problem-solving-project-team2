@@ -8,12 +8,12 @@ let newUser = define_new_user_select_field("user", "selectUser", on_user_change 
 function side_panel_header (){
     var x = document.createElement("H4");
     var t = document.createTextNode("Effective Permissions");
-    x.append(t);
-    document.body.append(x);
+    x.appendChild(t);
+    document.body.appendChild(x);
 };
 
 // $('#sidepanel').prepend(side_panel_header);
-$('#wrapper').prepend(side_panel_header);
+$('#filestructure').append(side_panel_header);
 $('#sidepanel').append(newUser);
 $('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
 $('#effectivePermissions').attr('username', 'administrator');
