@@ -13,7 +13,7 @@ function side_panel_header (){
 };
 
 // $('#sidepanel').prepend(side_panel_header);
-$('#filestructure').append(side_panel_header);
+// $('#filestructure').append(side_panel_header);
 $('#sidepanel').append(newUser);
 $('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
 $('#effectivePermissions').attr('username', 'administrator');
