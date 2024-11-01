@@ -5,15 +5,28 @@ $('#sidepanel').append(permChart)
 let newUser = define_new_user_select_field("user", "selectUser", on_user_change = function (selected_user) {
     $('#effectivePermissions').attr('username', selected_user)
 })
+
 function side_panel_header (){
-    var x = document.createElement("H4");
-    var t = document.createTextNode("Effective Permissions");
-    x.appendChild(t);
-    document.body.appendChild(x);
+    // get target element where we add header
+    var targetElement = document.getElementById("effectivePermissions");
+
+    // create header element
+    var headerElement = document.createElement("h3");
+
+    headerElement.style.padding = "15px";
+
+    // insert header before target element
+    headerElement.textContent = "Effective Permisions";
+    targetElement.parentNode.insertBefore(headerElement, targetElement);
 };
 
-// $('#sidepanel').prepend(side_panel_header);
-// $('#filestructure').append(side_panel_header);
+
+
+$('#sidepanel').prepend(side_panel_header);
+//$('#/C_header').prepend(file_panel_header);
+
+//$('#filestructure').append(side_panel_header);
+
 $('#sidepanel').append(newUser);
 $('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
 $('#effectivePermissions').attr('username', 'administrator');
