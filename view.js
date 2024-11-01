@@ -16,7 +16,7 @@ function side_panel_header (){
     headerElement.style.padding = "15px";
 
     // insert header before target element
-    headerElement.textContent = "Effective Permisions";
+    headerElement.textContent = "Effective Permissions";
     targetElement.parentNode.insertBefore(headerElement, targetElement);
 };
 
