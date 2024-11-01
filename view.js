@@ -3,7 +3,7 @@ let permChart = define_new_effective_permissions("effectivePermissions", add_inf
 $('#sidepanel').append(permChart)
 
 let newUser = define_new_user_select_field("user", "selectUser", on_user_change = function (selected_user) {
-    $('#effectivePermimssions').attr('username', selected_user)
+    $('#effectivePermissions').attr('username', selected_user)
 })
 function side_panel_header (){
     var x = document.createElement("H4");
@@ -43,6 +43,7 @@ $('.perm_info').click(function () {
 
     let explanation = get_explanation_text(allow_user_action(file_object, user_object, permissionName, explain_why = true));
     myDialog.append(explanation);
+
 })
 
 // ---- Display file structure ----
