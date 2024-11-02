@@ -20,6 +20,31 @@ function side_panel_header (){
     targetElement.parentNode.insertBefore(headerElement, targetElement);
 };
 
+let tutorialDialog = define_new_dialog('tutorial', 'Tutorial', {
+    buttons: {
+        Close: {
+            text: "Close",
+            id: "close-button",
+            click: function() {
+                $( this ).dialog('close');
+            }
+        }
+    }
+})
+tutorialDialog.text("To edit permissions for a certain file, click the Permissions button next to the file name.")
+tutorialDialog.dialog('open')
+
+
+// "Setting just 'allow' means the user has explicit authorization to perform the action."
+// "'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions."
+"If a user  has both 'Allow' and 'Deny' permissions,  the deny permission will take precedence."
+ "When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will usually prevent access unless granted from inheritance."
+
+
+
+
+
+
 
 
 $('#sidepanel').prepend(side_panel_header);
@@ -110,6 +135,7 @@ $('.folder').accordion({
 }) // TODO: start collapsed and check whether read permission exists before expanding?
 
 
+
 // -- Connect File Structure lock buttons to the permission dialog --
 
 // open permissions dialog when a permission button is clicked
@@ -128,8 +154,40 @@ $('.permbutton').click( function( e ) {
 
 $('.permbutton').append('Permissions')
 
+// small tutorial for setting permissions when permission dialog is opened
+let permDialog2 = define_new_dialog('tutorial', 'Setting Permissions', {
+    buttons: {
+        Close: {
+            text: "Close",
+            id: "close-button",
+            click: function() {
+                $(this).dialog('close')
+                
+            }
+        }
+    }
+})
+
+let permDialog = define_new_dialog('tutorial', 'Setting Permissions', {
+    buttons: {
+        Next: {
+            text: "Next",
+            id: "next-button",
+            click: function() {
+                $(this).dialog('close')
+                permDialog2.dialog('open')
+            }
+        }
+    }
+})
+permDialog.text("Setting just 'Allow' means the user has explicit authorization to perform the action. 'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions.")
+permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions,  the deny permission will take precedence. When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will prevent access unless the user has inherited permissions.")
 
 
+
+$('.permbutton').click( function() {
+    permDialog.dialog('open')
+})
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
 $('#html-loc').find('*').uniqueId() 
