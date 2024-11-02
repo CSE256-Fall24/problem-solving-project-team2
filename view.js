@@ -167,7 +167,7 @@ let permDialog2 = define_new_dialog('tutorial', 'Setting Permissions', {
         }
     }
 })
-
+// first dialog that pops up before ^
 let permDialog = define_new_dialog('tutorial', 'Setting Permissions', {
     buttons: {
         Next: {
@@ -181,10 +181,10 @@ let permDialog = define_new_dialog('tutorial', 'Setting Permissions', {
     }
 })
 permDialog.text("Setting just 'Allow' means the user has explicit authorization to perform the action. 'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions.")
-permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions,  the deny permission will take precedence. When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will prevent access unless the user has inherited permissions.")
+permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions, the Deny permission will take precedence. When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will prevent access unless the user has inherited permissions.")
 
 
-
+// tutorial shows up after permission button is clicked
 $('.permbutton').click( function() {
     permDialog.dialog('open')
 })
