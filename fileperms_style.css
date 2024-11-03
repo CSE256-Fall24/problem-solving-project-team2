@@ -46,3 +46,41 @@
 .no-close .ui-dialog-titlebar-close {
     display: none;
 }
+
+.ui-widget-content {
+    padding: 4px;
+}
+
+#permdialog_file_user_list {
+    padding: 10px 0px;
+}
+
+#permdialog_grouped_permissions_header {
+    text-align: left;
+    margin: 5px 5px 5px 10px;
+}
+
+#permdialog_grouped_permissions_header_p {
+    width: 70%;
+}
+
+#permissions_user_title {
+    font-weight: bold;
+}
+
+#perm_add_user_button {
+    padding: 6px;
+    margin: 6px 0px;
+    font-size: 0.8em;
+}
+
+#perm_remove_user {
+    padding: 6px;
+    margin: 6px;
+    font-size: 0.8em;
+}
+
+#permdialog_advanced_explantion_text {
+    font-style: italic;
+    font-size: 0.8em;
+}

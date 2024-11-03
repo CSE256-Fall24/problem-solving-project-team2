@@ -180,7 +180,7 @@ let permDialog = define_new_dialog('tutorial', 'Setting Permissions', {
         }
     }
 })
-permDialog.text("Setting just 'Allow' means the user has explicit authorization to perform the action. 'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions.")
+permDialog.text("Setting 'Allow' means the user has explicit authorization to perform the action. 'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions.")
 permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions, the Deny permission will take precedence. When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will prevent access unless the user has inherited permissions.")
 
 
@@ -191,3 +191,13 @@ $('.permbutton').click( function() {
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
 $('#html-loc').find('*').uniqueId() 
+
+// Edit text within permissions dialog
+const userPermissionsTitle = document.getElementById("permissions_user_title");
+userPermissionsTitle.textContent = "Select a user to edit permissions";
+
+const addUserButton = document.getElementById("perm_add_user_button");
+addUserButton.textContent = "Add user";
+
+const removeUserButton = document.getElementById("perm_remove_user");
+removeUserButton.textContent = "Remove user";
