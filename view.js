@@ -46,6 +46,9 @@ $('#sidepanel').prepend(side_panel_header);
 //$('#filestructure').append(side_panel_header);
 
 $('#sidepanel').append(newUser);
+
+
+
 $('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
 //$('#effectivePermissions').attr('username', 'administrator');
 
@@ -90,6 +93,7 @@ function make_file_element(file_obj) {
                 <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
                     <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
                 </button>
+                <button class="ui-button ui-widget ui-corner-all checkbutton" path="${file_hash}" id="${file_hash}_checkbutton">Check</button>
             </h3>
         </div>`)
 
@@ -110,6 +114,7 @@ function make_file_element(file_obj) {
             <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
                 <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
             </button>
+            <button class="ui-button ui-widget ui-corner-all checkbutton" path="${file_hash}" id="${file_hash}_checkbutton">Check</button>
         </div>`)
     }
 }
@@ -138,6 +143,23 @@ $('.permbutton').click( function( e ) {
     perm_dialog.attr('filepath', path)
     perm_dialog.dialog('open')
     //open_permissions_dialog(path)
+
+    // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
+    e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
+    // Emit a click for logging purposes:
+    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id,new Date().getTime()) }))
+});
+
+
+$('#effectivePermissions').append('<span id="update_text">Checking effective permissions in: N/A (Click the Check button next to the files)</span>')
+
+$('.checkbutton').click(function (e ) {
+    let filepath = $(this).attr('path')
+    let updateText = "Checking effective permissions in: " + String(filepath)
+    $('#effectivePermissions').attr('filepath', filepath)
+    
+    $("#update_text").remove();
+    $('#effectivePermissions').append('<span id="update_text">' + updateText + '</span>' )
 
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
@@ -180,6 +202,7 @@ permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions, the Deny p
 // tutorial shows up after permission button is clicked
 $('.permbutton').click( function() {
     permDialog.dialog('open')
+    console.log($( this ).attr('path'));
 })
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
