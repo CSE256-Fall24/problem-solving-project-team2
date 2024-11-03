@@ -47,7 +47,7 @@ $('#sidepanel').prepend(side_panel_header);
 
 $('#sidepanel').append(newUser);
 $('#effectivePermissions').attr('filepath', '/C/presentation_documents/important_file.txt');
-$('#effectivePermissions').attr('username', 'administrator');
+//$('#effectivePermissions').attr('username', 'administrator');
 
 let myDialog = define_new_dialog('newDialog', title = '', options = {})
 $('.perm_info').click(function () {
