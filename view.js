@@ -184,3 +184,9 @@ $('.permbutton').click( function() {
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
 $('#html-loc').find('*').uniqueId() 
+
+// setting up alert
+const perm_OK = document.getElementById("perm-dialog-ok-button");
+perm_OK.addEventListener("click", function (){
+    alert("You have changed the permissions.");
+});
