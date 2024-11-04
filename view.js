@@ -213,3 +213,13 @@ const perm_OK = document.getElementById("perm-dialog-ok-button");
 perm_OK.addEventListener("click", function (){
     alert("You have changed the permissions.");
 });
+
+//edit dialog box text
+const userPermissionsHeader = document.getElementById("permissions_user_title");
+userPermissionsHeader.textContent = "Select a user to edit permissions";
+
+const addButton = document.getElementById("perm_add_user_button");
+addButton.textContent = "Add user";
+
+const removeButton = document.getElementById("perm_remove_user");
+removeButton.textContent = "Remove user";
