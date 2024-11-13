@@ -80,6 +80,35 @@ $('.perm_info').click(function () {
 
 })
 
+// Add a common class to permission group titles
+$('[id^="permdialog_grouped_permissions_row_"]').each(function() {
+    $(this).addClass('perm_groups');
+});
+
+// Define the tooltip text for each permission group
+const tooltipTexts = {
+    "permdialog_grouped_permissions_Read_name": "Allows users to view the folder and subfolder contents",
+    "permdialog_grouped_permissions_Write_name": "Allows users to add files and subfolders and write to a file",
+    "permdialog_grouped_permissions_Read_Execute_name": "Allows users to view and run executable files",
+    "permdialog_grouped_permissions_Modify_name": "Allows users to read and write of files and subfolders; also allows deletion of the folder",
+    "permdialog_grouped_permissions_Full_control_name": "Allows users to read, write, change, and delete files and subfolders",
+    "permdialog_grouped_permissions_Special_permissions_name": "Catch-all for other permissions"
+};
+
+$('.perm_groups').each(function() {
+    let perm = $(this);
+    let permNameId = perm.find('td').first().attr('id'); // Get the ID of the permission name (e.g., Read, Write, etc.)
+
+    // Retrieve the tooltip text for this permission
+    let permTitle = tooltipTexts[permNameId];
+
+    if (permTitle) {
+        // Set the tooltip title and initialize the tooltip
+        perm.find('td').first().attr('title', permTitle);
+        perm.find('td').first().tooltip(); // Initialize the tooltip for the specific td element
+    } 
+})
+
 // ---- Display file structure ----
 
 // (recursively) makes and returns an html element (wrapped in a jquery object) for a given file object
@@ -223,3 +252,4 @@ addButton.textContent = "Add user";
 
 const removeButton = document.getElementById("perm_remove_user");
 removeButton.textContent = "Remove user";
+
