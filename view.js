@@ -13,11 +13,17 @@ function side_panel_header (){
     // create header element
     var headerElement = document.createElement("h3");
 
+    var subHeader = document.createElement("h4");
+
     headerElement.style.padding = "15px";
+    subHeader.style.paddingLeft = "15px";
+    subHeader.style.paddingBottom = "15px";
 
     // insert header before target element
     headerElement.textContent = "Effective Permissions";
-    targetElement.parentNode.insertBefore(headerElement, targetElement);
+    subHeader.textContent = "Check which file permissions are currently effective for selected users."
+    targetElement.parentNode.insertBefore(subHeader, targetElement);
+    subHeader.parentNode.insertBefore(headerElement, subHeader);
 };
 
 let tutorialDialog = define_new_dialog('tutorial', 'Tutorial', {
