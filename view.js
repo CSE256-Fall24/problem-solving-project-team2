@@ -6,7 +6,7 @@ let newUser = define_new_user_select_field("user", "selectUser", on_user_change 
     $('#effectivePermissions').attr('username', selected_user)
 })
 
-function side_panel_header (){
+function side_panel_header() {
     // get target element where we add header
     var targetElement = document.getElementById("effectivePermissions");
 
@@ -31,13 +31,13 @@ let tutorialDialog = define_new_dialog('tutorial', 'Tutorial', {
         Close: {
             text: "Close",
             id: "close-button",
-            click: function() {
-                $( this ).dialog('close');
+            click: function () {
+                $(this).dialog('close');
             }
         }
     }
 })
-tutorialDialog.text("To edit permissions for a certain file, click the Permissions button next to the file name.")
+tutorialDialog.text("Start by clicking the 'Edit Permissions' button next to the file name you want to edit.")
 tutorialDialog.dialog('open')
 
 
@@ -63,12 +63,12 @@ $('.perm_info').click(function () {
 
     console.log('clicked!')
     myDialog.dialog('open')
-    
+
     // Get the filepath, username, and permission name from the clicked element
     let filepath = $('#effectivePermissions').attr('filepath');
     let username = $('#effectivePermissions').attr('username');
     let permissionName = $(this).attr("permission_name");
-    
+
 
     // Log values for debugging
     console.log('Filepath: ', filepath);
@@ -77,7 +77,7 @@ $('.perm_info').click(function () {
 
     // Get the file and user objects
     let file_object = path_to_file[filepath];
-    let user_object = all_users[username];  
+    let user_object = all_users[username];
 
     myDialog.empty();
 
@@ -87,7 +87,7 @@ $('.perm_info').click(function () {
 })
 
 // Add a common class to permission group titles
-$('[id^="permdialog_grouped_permissions_row_"]').each(function() {
+$('[id^="permdialog_grouped_permissions_row_"]').each(function () {
     $(this).addClass('perm_groups');
 });
 
@@ -101,7 +101,7 @@ const tooltipTexts = {
     "permdialog_grouped_permissions_Special_permissions_name": "Catch-all for other permissions"
 };
 
-$('.perm_groups').each(function() {
+$('.perm_groups').each(function () {
     let perm = $(this);
     let permNameId = perm.find('td').first().attr('id'); // Get the ID of the permission name (e.g., Read, Write, etc.)
 
@@ -112,7 +112,7 @@ $('.perm_groups').each(function() {
         // Set the tooltip title and initialize the tooltip
         perm.find('td').first().attr('title', permTitle);
         perm.find('td').first().tooltip(); // Initialize the tooltip for the specific td element
-    } 
+    }
 })
 
 // ---- Display file structure ----
@@ -121,7 +121,7 @@ $('.perm_groups').each(function() {
 function make_file_element(file_obj) {
     let file_hash = get_full_path(file_obj)
 
-    if(file_obj.is_folder) {
+    if (file_obj.is_folder) {
         let folder_elem = $(`<div class='folder' id="${file_hash}_div">
             <h3 id="${file_hash}_header">
                 <span class="oi oi-folder" id="${file_hash}_icon"/> ${file_obj.filename} 
@@ -133,10 +133,10 @@ function make_file_element(file_obj) {
         </div>`)
 
         // append children, if any:
-        if( file_hash in parent_to_children) {
+        if (file_hash in parent_to_children) {
             let container_elem = $("<div class='folder_contents'></div>")
             folder_elem.append(container_elem)
-            for(child_file of parent_to_children[file_hash]) {
+            for (child_file of parent_to_children[file_hash]) {
                 let child_elem = make_file_element(child_file)
                 container_elem.append(child_elem)
             }
@@ -154,9 +154,9 @@ function make_file_element(file_obj) {
     }
 }
 
-for(let root_file of root_files) {
+for (let root_file of root_files) {
     let file_elem = make_file_element(root_file)
-    $( "#filestructure" ).append( file_elem);    
+    $("#filestructure").append(file_elem);
 }
 
 
@@ -172,7 +172,7 @@ $('.folder').accordion({
 // -- Connect File Structure lock buttons to the permission dialog --
 
 // open permissions dialog when a permission button is clicked
-$('.permbutton').click( function( e ) {
+$('.permbutton').click(function (e) {
     // Set the path and open dialog:
     let path = e.currentTarget.getAttribute('path');
     perm_dialog.attr('filepath', path)
@@ -182,24 +182,24 @@ $('.permbutton').click( function( e ) {
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
     // Emit a click for logging purposes:
-    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id,new Date().getTime()) }))
+    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id, new Date().getTime()) }))
 });
 
 
 $('#effectivePermissions').append('<span id="update_text">Checking effective permissions in: N/A (Click the Check button next to the files)</span>')
 
-$('.checkbutton').click(function (e ) {
+$('.checkbutton').click(function (e) {
     let filepath = $(this).attr('path')
     let updateText = "Checking effective permissions in: " + String(filepath)
     $('#effectivePermissions').attr('filepath', filepath)
-    
+
     $("#update_text").remove();
-    $('#effectivePermissions').append('<span id="update_text">' + updateText + '</span>' )
+    $('#effectivePermissions').append('<span id="update_text">' + updateText + '</span>')
 
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
     e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
     // Emit a click for logging purposes:
-    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id,new Date().getTime()) }))
+    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id, new Date().getTime()) }))
 });
 
 $('.permbutton').append('Permissions')
@@ -210,9 +210,9 @@ let permDialog2 = define_new_dialog('tutorial', 'Setting Permissions', {
         Close: {
             text: "Close",
             id: "close-button",
-            click: function() {
+            click: function () {
                 $(this).dialog('close')
-                
+
             }
         }
     }
@@ -223,39 +223,48 @@ let permDialog = define_new_dialog('tutorial', 'Setting Permissions', {
         Next: {
             text: "Next",
             id: "next-button",
-            click: function() {
+            click: function () {
                 $(this).dialog('close')
                 permDialog2.dialog('open')
             }
         }
     }
 })
-permDialog.text("Setting just 'Allow' means the user has explicit authorization to perform the action. 'Deny' will explicitly restrict the user from the specified action, overriding inherited permissions.")
-permDialog2.text("If a user  has both 'Allow' and 'Deny' permissions, the Deny permission will take precedence. When neither 'Allow' nor 'Deny' is set, the user has no explicit permission, which will prevent access unless the user has inherited permissions.")
+permDialog.text("'Allow' means the user can perform the action. 'Deny' explicitly restricts the user from the specified action, overriding inherited permissions.")
+permDialog2.text("The 'Deny' permission overrides the 'Allow' permission. When neither 'Allow' nor 'Deny' is set, the user will not have access unless the user has inherited permissions.")
 
 
 // tutorial shows up after permission button is clicked
-$('.permbutton').click( function() {
+$('.permbutton').click(function () {
     permDialog.dialog('open')
-    console.log($( this ).attr('path'));
+    console.log($(this).attr('path'));
 })
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
-$('#html-loc').find('*').uniqueId() 
+$('#html-loc').find('*').uniqueId()
 
 // setting up alert
 const perm_OK = document.getElementById("perm-dialog-ok-button");
-perm_OK.addEventListener("click", function (){
+perm_OK.addEventListener("click", function () {
     alert("You have changed the permissions.");
 });
 
 //edit dialog box text
 const userPermissionsHeader = document.getElementById("permissions_user_title");
-userPermissionsHeader.textContent = "Select a user to edit permissions";
+userPermissionsHeader.textContent = "Step 1: Select the user whose permissions you want to adjust";
 
 const addButton = document.getElementById("perm_add_user_button");
-addButton.textContent = "Add user";
+addButton.textContent = "Add a user";
 
 const removeButton = document.getElementById("perm_remove_user");
-removeButton.textContent = "Remove user";
+removeButton.textContent = "Remove a user";
 
+const editPermsText = document.createElement("p");
+editPermsText.innerHTML = "<strong>Step 2: Modify specific permissions below using the 'Allow' and 'Deny' checkboxes.</strong> <br><br> Hover over the permission names to get more information.";
+editPermsText.style.marginTop = "10px";
+editPermsText.style.marginBottom = "10px";
+
+const permissionsTable = document.getElementById("permdialog_grouped_permissions");
+const parentContainer = document.getElementById("permdialog");
+
+parentContainer.insertBefore(editPermsText, permissionsTable);
