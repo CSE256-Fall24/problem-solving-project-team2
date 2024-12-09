@@ -37,7 +37,7 @@ let tutorialDialog = define_new_dialog('tutorial', 'Tutorial', {
         }
     }
 })
-tutorialDialog.text("Start by clicking the 'Edit Permissions' button next to the file name you want to edit.")
+tutorialDialog.html("<strong>Please only click where you believe will help you complete the task!</strong> <br><br> Start by clicking the 'Edit Permissions' button next to the file name you want to edit.")
 tutorialDialog.dialog('open')
 
 
